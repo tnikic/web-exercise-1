@@ -80,38 +80,14 @@ As mentioned at the beginning, this exercise consists of three parts.
 1. The second part is already located on the client side in `server/files/index.html`. Remember: Although this file resides on the server, it is requested by the client and parsed, displayed and executed on the client-side. Here you will add code to receive and parse the JSON movie data that the server sends and create and add HTML elements to the DOM to render that data.
 1. In the third part you will make the page look somewhat prettier by adding some style. Styling using CSS is also implemented on the client side.
 
-### Checking your implementation
-To check whether your implementation is working as expected you **should** use Cypress end-to-end tests. These tests are the exact same tests used to assess your implementation once you commit it to the GitHub repository. 
+### Important: Presentation Requirement
 
-To start the tests, run
+**After completing this exercise, half of the group will be randomly selected to present and demonstrate their implementation during our next meeting.** Be prepared to:
+- Walk through your code and explain your implementation choices
+- Demonstrate the working application
+- Answer questions about your approach
 
-    npm run cypress
-
-If you do so without making any changes to the application, all tests will fail. After implementing an individual part, the corresponding test will pass. It is best to do them in order, because they build on top of each other. 
-
-Here's how the Cypress UI looks after running the command above:
-
-![Cypress UI - Start screen](images/cypress-ui.png "The start screen of the Cypress UI")
-
-Choose `E2E Testing`, now you will be able to choose a browser to run the tests:
-
-![Cypress UI - Browser Choice](images/cypress-ui-browser-choice.png "The browser choice of the Cypress UI")
-
-Apart from the browsers found on your system, the Electron Browser is also available. This browser cames baked into Cypress and does not need to be installed separately. Just in case you wonder where this one comes from ;).
-
-**Warning!** Firefox has bugs when it comes to testing style related tests, so it's best to avoid testing using Firefox. We recommend to use **Chrome** because that's the one we will use during  assessment.
-
-After you choose a browser and click the `Start E2E Testing in ...` button, the Cypress Tests are started using that browser. In Chrome this looks like this (altough your process name will be different):
-
-![Cypress test specifications (specs) shown in Chrome](images/chrome-specs.png "The test specifications (specs) screen opened in Chrome")
-
-At the moment there is only one test specification (spec) file, namely `cypress/e2e/assessment.cy.js`. Click the file name to run the tests:
-
-![Cypress assessment specification opened in Chrome](images/chrome-assessment.png "The assessment specification opened in Chrome")
-
-As expected, **all** tests fail! By the way, this is what [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) is all about :). 
-
-If necessary, you can run them manually by clicking on the `Reload icon` in the upper right corner or by hitting the `r` key.
+Make sure you understand what your code does and why you made certain decisions!
 
 ### Part 1: Returning the movie data from the /movies endpoint
 
@@ -149,30 +125,32 @@ You may have noticed that all properties have String values, even numerical data
 
 Finally, put all the movies you chose in one JSON array and return that array instead of the `!dlrow olleH` string. To be precise, the array you return will contain three objects each of which represents the data of one movie.
 
-**Once you have done that, the first test will pass! Make sure to check.** Since we did not change anything on the client side, the movie data you return will show up reversed on the web page.
+**Verify your implementation by checking the `/movies` endpoint in your browser and ensuring valid JSON is returned.**
 
 ### Part 2: Rendering the movie data on the client side
 
-In this part you will have to dynamically add new HTML elements to the `body` of the application's HTML page. Before you can use the information, you will have to find a way to parse the JSON data into a JavaScript array. Then, loop through the movies contained in the array and build the following HTML element structure for each movie:
+In this part you will have to dynamically add new HTML elements to the `body` of the application's HTML page. Before you can use the information, you will have to find a way to parse the JSON data into JavaScript objects.
+
+Here is a **suggested structure** for the HTML elements you should create for each movie. Feel free to adjust this structure if you have a better idea, but make sure all the movie information is displayed:
 
 * **article**. An article for the whole movie
     * **img**. An image showing the movie *Poster*
     * **h1**. A header with *Title* as content
     * **p** the paragraph for basic movie information
-        * A **span** element containing the **Runtime**. Format the runtime in hours and minutes, e.g. *The Thing* has 109 minutes Runtime, which will be formatted as <span style="font-family:Lucida Sans Typewriter">1h 49m</span>. [Math.trunc(...)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc) might be helpful
-        * A **span** containing a [bullet](https://en.wikipedia.org/wiki/Bullet_(typography)). See this [Stackoverflow question](https://stackoverflow.com/questions/13093126/insert-unicode-character-into-javascript) to see how to include a Unicode character in a JavaScript string
-        * A **span** containing the *Released* date. Use [toLocaleDateString](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString) to format the ISO 8601 date string.
+        * A **span** element containing the **Runtime**. You can format the runtime in hours and minutes (e.g., 109 minutes as "1h 49m") or keep it simple and just show minutes
+        * A **span** containing a separator (like a [bullet](https://en.wikipedia.org/wiki/Bullet_(typography)))
+        * A **span** containing the *Released* date. You can use [toLocaleDateString](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString) or format it however you prefer
 
-    * A paragraph **p** containing a **span** element for *each* genre of the movie. Assign the *class* **genre** to the element. 
+    * A paragraph **p** containing a **span** element for *each* genre of the movie. You might want to assign a class like **genre** to these elements for styling purposes
     * Another paragraph **p** containing just the *Plot*
     * **h2**. A header saying `Directors`
     * **ul**. An unordered list of all the directors of the movie, each director in its own **li** (list item)
     * **h2**. Another header for the `Writers`
-    * **ul**. Another unordered list with list items for each writer.
+    * **ul**. Another unordered list with list items for each writer
     * **h2**. A last header for the `Actors`
     * **ul**. Again, an unordered list with list items for all actors
 
-This is what the HTML structure looks for a specific movie:
+This is an example of what the HTML structure could look like for a specific movie:
 
 ```html
 <article>
@@ -181,7 +159,7 @@ This is what the HTML structure looks for a specific movie:
     <p><span>Runtime 1h 49m</span><span>•</span><span>Released on 6/25/1982</span></p>
     <p><span class="genre">Horror</span><span class="genre">Mystery</span><span class="genre">Sci-Fi</span></p>
     <p>A research team in Antarctica is hunted by a shape-shifting alien that assumes the appearance of its victims.</p>
-    <h2>Director</h2>
+    <h2>Directors</h2>
     <ul>
         <li>John Carpenter</li>
     </ul>
@@ -203,38 +181,45 @@ Here's a screenshot of what your application will (appoximately) look like after
 
 ![Part 2 example implementation shown Chrome](images/Part2-done.png "Part 2 implementation shown in Chrome")
 
-**Now the second test will pass :)**
+**Check your implementation by viewing the application in your browser and verifying all movie data is displayed correctly.**
 
 ### Part 3: Styling the page
 
-In this final part you will add some styling by applying CSS. You will add CSS rules to the `style` element to the `head` of the page. The styling consists of six rules, five will apply to tag names (**body**, **img**, ...), one will apply the **span** element with class *genre*.
+In this final part you will add some styling by applying CSS. You will add CSS rules to the `style` element in the `head` of the page. 
 
-Here are the details regarding the rules you must add:
+Here are **suggestions** for styling rules you could add. Feel free to be creative and adjust these to your liking:
 
 1. **body**
-    1. A `font-family` with the two following fonts: `'Trebuchet MS'` and `sans-serif`
+    1. Set a `font-family` (e.g., `'Trebuchet MS'`, `sans-serif`, or your favorite fonts)
 1. **img**
-    1. A `border-radius` of 2 to 32 pixels
+    1. Add a `border-radius` to round the corners
+    1. Consider setting a `max-width` so images don't get too large
 1. **h1**
-    1. A `font-size`: either **bold** or a weight between 100 to 400
-    1. A short-hand `margin` consisting of two values
-        * the first  value specifies the top and bottom margins and must be between 4 and 16 pixels
-        * the second value specifies the left and right margin and must be between 0 and 8 pixels
+    1. Set a `font-weight` (e.g., bold)
+    1. Add some `margin` for spacing
 1. **article**
-    1. A `background-color` of your liking
-    1. A `border-radius` between 2 and 32 pixels
-    1. A `margin` between 2 and 16 of the viewport's width
-    1. A `padding` between 2 and 32 pixels
+    1. Set a `background-color` of your liking
+    1. Add a `border-radius` for rounded corners
+    1. Add some `margin` to separate movies from each other
+    1. Add `padding` for inner spacing
+    1. Consider adding a `box-shadow` for depth
 1. **span**
-    1. A **right** margin of more than 0 pixels
-1. And finally, some styling for the genre tags, that is, the **span** elements that have class *genre*. Use a [class selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Class_selectors)!
-    1. A `background-color` of your liking
-    1. A short-hand `padding` with two values (one for top-bottom and one for left-right), both between 2 and 16 pixels
-    1. A `border-radius` between 2 and 32 pixels
-    1. A `border` property containing a **width** between 1 and 8 pixels, a **style** and a **color** of your liking
+    1. Add a small right `margin` for spacing between elements
+1. Style for the genre tags (the **span** elements with class *genre*). Use a [class selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Class_selectors)!
+    1. Set a `background-color` to make them stand out
+    1. Add `padding` for inner spacing
+    1. Add `border-radius` for rounded corners
+    1. Optionally add a `border`
+    1. Consider using `display: inline-block` for better control
 
-In the end, your application looks something like this:
+**Feel free to add more styling rules and make the page your own!** Consider adding:
+- Hover effects
+- Different colors for different elements
+- Better spacing and layout
+- Responsive design elements
+
+In the end, your application could look something like this (or completely different based on your creativity):
 
 ![Exercise 1 example implementation shown Chrome](images/Part3-done.png "Exercise 1 implementation shown in Chrome")
 
-You have finished the first exercise: **Congratulations, all tests pass!** 
+**Congratulations on finishing the first exercise!** Make sure to test your application thoroughly and be ready to present your work in the next meeting.
