@@ -131,53 +131,22 @@ Finally, put all the movies you chose in one JSON array and return that array in
 
 In this part you will have to dynamically add new HTML elements to the `body` of the application's HTML page. Before you can use the information, you will have to find a way to parse the JSON data into JavaScript objects.
 
-Here is a **suggested structure** for the HTML elements you should create for each movie. Feel free to adjust this structure if you have a better idea, but make sure all the movie information is displayed:
+Your task is to:
+1. Parse the JSON movie data received from the server into JavaScript objects
+2. Loop through each movie object in the array
+3. For each movie, dynamically create HTML elements that display all the movie information
+4. Append these elements to the page body
 
-* **article**. An article for the whole movie
-    * **img**. An image showing the movie *Poster*
-    * **h1**. A header with *Title* as content
-    * **p** the paragraph for basic movie information
-        * A **span** element containing the **Runtime**. You can format the runtime in hours and minutes (e.g., 109 minutes as "1h 49m") or keep it simple and just show minutes
-        * A **span** containing a separator (like a [bullet](https://en.wikipedia.org/wiki/Bullet_(typography)))
-        * A **span** containing the *Released* date. You can use [toLocaleDateString](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString) or format it however you prefer
+**Important**: Think carefully about which HTML elements best represent the semantic meaning of your content. HTML provides many different tags, each with its own purpose and meaning. Choosing the right semantic elements will make your page more accessible, easier to style, and better structured.
 
-    * A paragraph **p** containing a **span** element for *each* genre of the movie. You might want to assign a class like **genre** to these elements for styling purposes
-    * Another paragraph **p** containing just the *Plot*
-    * **h2**. A header saying `Directors`
-    * **ul**. An unordered list of all the directors of the movie, each director in its own **li** (list item)
-    * **h2**. Another header for the `Writers`
-    * **ul**. Another unordered list with list items for each writer
-    * **h2**. A last header for the `Actors`
-    * **ul**. Again, an unordered list with list items for all actors
+To help you understand semantic HTML and available HTML elements, here are some valuable resources:
 
-This is an example of what the HTML structure could look like for a specific movie:
+1. [MDN: HTML elements reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) - A comprehensive guide to all HTML elements and their purposes
+2. [Web.dev: Semantic HTML](https://web.dev/learn/html/semantic-html/) - Learn why semantic HTML matters and how to use it effectively
 
-```html
-<article>
-    <img src="https://m.media-amazon.com/images/M/MV5BNGViZWZmM2EtNGYzZi00ZDAyLTk3ODMtNzIyZTBjN2Y1NmM1XkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SX300.jpg">
-    <h1>The Thing</h1>
-    <p><span>Runtime 1h 49m</span><span>•</span><span>Released on 6/25/1982</span></p>
-    <p><span class="genre">Horror</span><span class="genre">Mystery</span><span class="genre">Sci-Fi</span></p>
-    <p>A research team in Antarctica is hunted by a shape-shifting alien that assumes the appearance of its victims.</p>
-    <h2>Directors</h2>
-    <ul>
-        <li>John Carpenter</li>
-    </ul>
-    <h2>Writers</h2>
-    <ul>
-        <li>Bill Lancaster</li>
-        <li>John W. Campbell Jr.</li>
-    </ul>
-    <h2>Actors</h2>
-    <ul>
-        <li>Kurt Russell</li>
-        <li>Wilford Brimley</li>
-        <li>Keith David</li>
-    </ul>
-</article>
-```
+Make sure all movie information from Part 1 is displayed on the page in a clear and organized manner.
 
-Here's a screenshot of what your application will (appoximately) look like after implementing this part:
+Here's a screenshot of what your application might look like after implementing this part (your structure may vary):
 
 ![Part 2 example implementation shown Chrome](images/Part2-done.png "Part 2 implementation shown in Chrome")
 
