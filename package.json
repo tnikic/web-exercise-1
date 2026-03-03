@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
-    "start-nodemon": "nodemon server/server.js",
-    "test": "npx cypress run",
-    "cypress": "npx cypress open"
+    "start-nodemon": "nodemon server/server.js"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +14,6 @@
     "express": "^4.18.2"
   },
   "devDependencies": {
-    "cypress": "^12.5.1",
     "nodemon": "^2.0.20"
   }
 }
