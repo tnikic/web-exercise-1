@@ -74,15 +74,20 @@ which are requesting the movie data from the server by making the `GET` request 
 That's were the data received from the server is added to the page. The `responseText` property of the `xhr` variable contains the content that was sent by the server - the reversed message `!dlrow olleH`. The client then uses the function `reverseString` (which you find a few lines above) to reverse the string and the `append` method of the html element of the body of the page to add the reversed message to the body. That's how the message from the server ends up on our web page when we open the application.
 
 ## Tasks
-As mentioned at the beginning, this exercise consists of three parts.
+As mentioned at the beginning, this exercise consists of three parts:
 
-1. First, who will have to change the data the server returns, e.g. you will have to replace `!dlrow olleH` with movie data formatted in JSON. This is done on the server side in `server/server.js`.
-1. The second part is already located on the client side in `server/files/index.html`. Remember: Although this file resides on the server, it is requested by the client and parsed, displayed and executed on the client-side. Here you will add code to receive and parse the JSON movie data that the server sends and create and add HTML elements to the DOM to render that data.
-1. In the third part you will make the page look somewhat prettier by adding some style. Styling using CSS is also implemented on the client side.
+1. **Part 1: Returning the movie data from the `/movies` endpoint (1 point)**  
+   Implement the server-side endpoint in `server/server.js` so that `/movies` returns an array of **at least three** movie objects in **valid JSON**, based on OMDb API example data (trimmed and reformatted as specified).
+
+2. **Part 2: Rendering the movie data on the client side (3 points)**  
+   In `server/files/index.html`, parse the JSON returned by the server, loop over the movie array, and dynamically create **semantic HTML elements** that display **all** required movie information. Append the created elements to the page body.
+
+3. **Part 3: Styling the page (2 points)**  
+   Add CSS rules in the `<style>` element in the `<head>` of `server/files/index.html` to improve the look and layout of the rendered movie information (you may follow the suggested styling rules and/or extend them creatively).
 
 ### Important: Presentation Requirement
 
-**After completing this exercise, half of the group will be randomly selected to present and demonstrate their implementation during our next meeting.** Be prepared to:
+**You will be asked about your implementation during our next meeting.** Be prepared to:
 - Walk through your code and explain your implementation choices
 - Demonstrate the working application
 - Answer questions about your approach
